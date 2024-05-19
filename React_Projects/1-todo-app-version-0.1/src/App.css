@@ -1,0 +1,22 @@
+h1{
+    font-weight: 900;
+    font-size: 40px;
+    margin: 10px;
+    margin-bottom: 10px;
+}
+
+input{
+    width: 100%;
+}
+
+.items-container{
+    text-align: left;
+}
+
+.cus-row{
+    margin: 10px 5px;
+}
+.cus-btn{
+    min-width: 70px;
+    width: 100%;
+}
