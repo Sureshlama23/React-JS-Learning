@@ -24,14 +24,6 @@ function App() {
         <ErrorMessage items={foodItems}></ErrorMessage>
         <FoodItems items={foodItems}></FoodItems>
       </Container>
-      {/* <Container>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni cumque
-          temporibus, ducimus dolorum possimus laudantium voluptatibus non
-          aspernatur. Temporibus ad aliquam mollitia exercitationem, quaerat nam
-          obcaecati odit veniam deleniti placeat!
-        </p>
-      </Container> */}
     </>
   );
 }

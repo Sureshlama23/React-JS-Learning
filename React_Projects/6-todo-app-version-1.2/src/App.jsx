@@ -1,35 +1,34 @@
 import AppName from "./components/AppName";
 import AddTodo from "./components/AddTodo";
-import TodoItem from "./components/TodoItem";
 import TodoItems from "./components/TodoItems";
 import "./App.css";
+import Container from "./components/Container";
+import ErrorMessage from "./components/ErrorMessge";
+import { useState } from "react";
 
 function App() {
-  let todoItems = [
-    {
-      name: "Buy a Computer",
-      dueDate: "2/5/2024",
-    },
-    {
-      name: "Learn React JS",
-      dueDate: "While not master",
-    },
-    {
-      name: "Buy a Car",
-      dueDate: "3/5/2024",
-    },
-    {
-      name: "Like my video",
-      dueDate: "Right Now",
-    },
-  ];
+  const [todoItems, setTodoItem] = useState([]);
+  const handleNewItem = (textValue, dateValue) => {
+    if (textValue && dateValue) {
+      let newTodoItem = [...todoItems, { name: textValue, dueDate: dateValue }];
+      setTodoItem(newTodoItem);
+    }
+  };
+
+  const handleDeleteItem = (toDeleteItem) => {
+    const newTodoItem = todoItems.filter((item) => item.name !== toDeleteItem);
+    setTodoItem(newTodoItem);
+  };
   return (
-    <center className="center-container">
+    <Container>
       <AppName></AppName>
-      <br />
-      <AddTodo></AddTodo>
-      <TodoItems todoItems={todoItems}></TodoItems>
-    </center>
+      <AddTodo onNewItem={handleNewItem}></AddTodo>
+      <ErrorMessage checkItems={todoItems}></ErrorMessage>
+      <TodoItems
+        todoItems={todoItems}
+        onDeleteItem={handleDeleteItem}
+      ></TodoItems>
+    </Container>
   );
 }
 
