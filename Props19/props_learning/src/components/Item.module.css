@@ -1,6 +1,7 @@
-.item-text {
-    font-weight: 500;
+.itemText {
+    margin-top: 5px;
 }
 .button {
     float: right;
 }
+

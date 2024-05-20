@@ -1,10 +1,11 @@
 import css from "./Item.module.css";
 
-function Item({ singleFoodItem, handlingOnClick }) {
-  
+function Item({ singleFoodItem, bought, handlingOnClick }) {
   return (
     <li className="list-group">
-      <span className="list-group-item">
+      <span
+        className={` ${css.itemText} list-group-item ${bought && "active"}`}
+      >
         {singleFoodItem}
         <button
           className={`${css.button} btn btn-info`}
