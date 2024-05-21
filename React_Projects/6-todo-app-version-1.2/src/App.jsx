@@ -5,30 +5,32 @@ import "./App.css";
 import Container from "./components/Container";
 import ErrorMessage from "./components/ErrorMessge";
 import { useState } from "react";
+import { TodoItemsContext } from "./store/todo-items-store";
 
 function App() {
   const [todoItems, setTodoItem] = useState([]);
-  const handleNewItem = (textValue, dateValue) => {
+  const addNewItem = (textValue, dateValue) => {
     if (textValue && dateValue) {
-      let newTodoItem = [...todoItems, { name: textValue, dueDate: dateValue }];
-      setTodoItem(newTodoItem);
+      setTodoItem((currentValue) => [
+        ...currentValue,
+        { name: textValue, dueDate: dateValue },
+      ]);
     }
   };
 
-  const handleDeleteItem = (toDeleteItem) => {
+  const deleteItem = (toDeleteItem) => {
     const newTodoItem = todoItems.filter((item) => item.name !== toDeleteItem);
     setTodoItem(newTodoItem);
   };
   return (
-    <Container>
-      <AppName></AppName>
-      <AddTodo onNewItem={handleNewItem}></AddTodo>
-      <ErrorMessage checkItems={todoItems}></ErrorMessage>
-      <TodoItems
-        todoItems={todoItems}
-        onDeleteItem={handleDeleteItem}
-      ></TodoItems>
-    </Container>
+    <TodoItemsContext.Provider value={{ todoItems, addNewItem, deleteItem }}>
+      <Container>
+        <AppName></AppName>
+        <AddTodo></AddTodo>
+        <ErrorMessage></ErrorMessage>
+        <TodoItems></TodoItems>
+      </Container>
+    </TodoItemsContext.Provider>
   );
 }
 

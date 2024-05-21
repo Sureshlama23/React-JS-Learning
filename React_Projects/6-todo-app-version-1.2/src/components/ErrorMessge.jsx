@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import styles from "./ErrorMessage.module.css";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-const ErrorMessage = ({ checkItems }) => {
+const ErrorMessage = () => {
+  const { todoItems } = useContext(TodoItemsContext);
   return (
     <>
-      {checkItems.length === 0 && (
+      {todoItems.length === 0 && (
         <h1 className={styles.errorMessage}>Enjoy your day</h1>
       )}
     </>
