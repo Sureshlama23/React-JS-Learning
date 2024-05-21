@@ -1,0 +1,10 @@
+.container {
+    text-align: center;
+    border: 1px rgba(36, 35, 35, 0.712);
+    border-radius: 5px;
+    width: 80%;
+    margin: auto;
+    margin-top: 5px;
+
+}
+
