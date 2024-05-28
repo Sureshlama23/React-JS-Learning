@@ -1,35 +1,9 @@
-import { useContext, useRef } from "react";
-import { PostListContext } from "../store/post-list-store";
-import { useNavigate } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 
-const CreatePost = () => {
-  const { addPost } = useContext(PostListContext);
-  const navigate = useNavigate();
-
-  const postIDEleElement = useRef();
-  const postTitleElement = useRef();
-  const contentElement = useRef();
-  const reactionsElement = useRef();
-  const tagsElement = useRef();
-
-  const handleNewPost = (event) => {
-    event.preventDefault();
-    const title = postTitleElement.current.value;
-    const body = contentElement.current.value;
-    const reactions = reactionsElement.current.value;
-    const id = postIDEleElement.current.value;
-    const tags = tagsElement.current.value.split(" ");
-    postTitleElement.current.value = "";
-
-    contentElement.current.value = "";
-    reactionsElement.current.value = "";
-    postIDEleElement.current.value = "";
-    tagsElement.current.value = "";
-    
-  };
+const CreatePost = () => {              
 
   return (
-    <form className="create-form" onSubmit={(event) => handleNewPost(event)}>
+    <Form method="POST" className="create-form">
       <div className="mb-3">
         <label htmlFor="post id" className="form-label">
           Your ID
@@ -40,7 +14,7 @@ const CreatePost = () => {
           id="postid"
           aria-describedby="emailHelp"
           placeholder="Enter user id"
-          ref={postIDEleElement}
+          name="userId"
         />
       </div>
       <div className="mb-3">
@@ -53,7 +27,7 @@ const CreatePost = () => {
           id="title"
           aria-describedby="emailHelp"
           placeholder="How are you feeling today?"
-          ref={postTitleElement}
+          name="title"
         />
       </div>
       <div className="mb-3">
@@ -66,7 +40,7 @@ const CreatePost = () => {
           id="reactions"
           aria-describedby="emailHelp"
           placeholder="Post reactions"
-          ref={reactionsElement}
+          name="reactions"
         />
       </div>
       <div className="mb-3">
@@ -77,7 +51,7 @@ const CreatePost = () => {
           className="form-control"
           id="body"
           rows="4"
-          ref={contentElement}
+          name="body"
         ></textarea>
       </div>
       <div className="mb-3">
@@ -90,33 +64,29 @@ const CreatePost = () => {
           id="tags"
           aria-describedby="emailHelp"
           placeholder="Enter Post Tags"
-          ref={tagsElement}
+          name="tags"
         />
       </div>
 
       <button className="btn btn-primary">Post</button>
-    </form>
+    </Form>
   );
 };
 
-export async function PostLoader () {
+export async function createPostAction(data) {
+  const formData = await data.request.formData();
+  const postData = Object.fromEntries(formData);
+  postData.tags = postData.tags.split(" ");
   fetch("https://dummyjson.com/posts/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: title,
-        userId: id,
-        body: body,
-        reactions: reactions,
-        useId: id,
-        tags: tags,
-      }),
-    })
-      .then((res) => res.json())
-      .then((post) => {
-        addPost(post);
-        navigate("/");
-      });
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postData),
+  })
+    .then((res) => res.json())
+    .then((post) => {
+      console.log(post);
+    });
+  return redirect("/");
 }
 
 export default CreatePost;
