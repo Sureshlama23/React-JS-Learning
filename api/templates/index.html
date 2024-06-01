@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bulk Event Creator</title>
+</head>
+<body>
+  <h1>Bulk Event Creator</h1>
+  <form action="/create-events" method="post">
+    <label for="contact_email">Contact Email:</label><br>
+    <input type="email" id="contact_email" name="contact_email"><br>
+    <label for="calendar_name">Calendar Name:</label><br>
+    <input type="text" id="calendar_name" name="calendar_name"><br>
+    <label for="day_of_week">Day of Week:</label><br>
+    <input type="text" id="day_of_week" name="day_of_week"><br>
+    <label for="event_start_time">Event Start Time:</label><br>
+    <input type="time" id="event_start_time" name="event_start_time"><br>
+    <label for="number_of_appointments">Number of Appointments:</label><br>
+    <input type="number" id="number_of_appointments" name="number_of_appointments"><br>
+    <input type="submit" value="Create Events">
+  </form>
+  <form action="/delete-events" method="post">
+    <label for="event_ids">Event IDs to Delete (comma separated):</label><br>
+    <input type="text" id="event_ids" name="event_ids"><br>
+    <input type="submit" value="Delete Events">
+  </form>
+</body>
+</html>
